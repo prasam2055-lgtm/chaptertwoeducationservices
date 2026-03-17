@@ -19,12 +19,12 @@ const Navbar = () => {
               {link}
             </a>
           ))}
-          <a
-            href="#lead-form"
+          <button
+            onClick={() => document.dispatchEvent(new CustomEvent("open-lead-form"))}
             className="bg-navy text-primary-foreground px-5 py-2.5 rounded-lg font-semibold text-xs hover:opacity-90 transition-opacity"
           >
             Book Free Counseling
-          </a>
+          </button>
         </div>
 
         <button className="lg:hidden text-foreground" onClick={() => setOpen(!open)}>
