@@ -1,4 +1,5 @@
 import { MapPin, Phone, Mail, Facebook, Instagram, Send } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => (
   <footer className="bg-navy text-primary-foreground pt-20 pb-10 px-6">
