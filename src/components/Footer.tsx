@@ -5,9 +5,7 @@ const Footer = () => (
   <footer className="bg-navy text-primary-foreground pt-20 pb-10 px-6">
     <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12 mb-20">
       <div className="md:col-span-2">
-        <div className="text-2xl font-bold mb-6">
-          ChapterTwo <span className="text-gold">Education</span>
-        </div>
+        <img src={logo} alt="ChapterTwo Education Services" className="h-12 mb-6" />
         <p className="text-primary-foreground/60 max-w-sm leading-relaxed mb-8">
           A trusted consultancy in Nepal making your journey to top destinations like Australia, Canada, the USA, and the UK smooth and successful.
         </p>

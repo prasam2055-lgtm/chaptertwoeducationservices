@@ -10,9 +10,7 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-40 bg-background/80 backdrop-blur-md border-b border-border px-6 py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="font-bold text-xl tracking-tight text-foreground">
-          ChapterTwo <span className="text-gold">Education</span>
-        </div>
+        <img src={logo} alt="ChapterTwo Education Services" className="h-10" />
 
         <div className="hidden lg:flex items-center gap-8 text-sm font-medium text-muted-foreground">
           {navLinks.map((link) => (
