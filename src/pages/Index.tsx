@@ -1,3 +1,4 @@
+import AnnouncementBar from "@/components/AnnouncementBar";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import StatsSection from "@/components/StatsSection";
@@ -16,6 +17,7 @@ const Index = () => (
   <div className="min-h-screen bg-background text-foreground antialiased">
     <WhatsAppButton />
     <LeadFormPopup />
+    <AnnouncementBar />
     <Navbar />
     <HeroSection />
     <StatsSection />
