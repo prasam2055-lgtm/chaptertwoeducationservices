@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const universities = [
   "University of Birmingham (UK)",
   "Coventry University (UK)",
@@ -12,17 +14,12 @@ const universities = [
 const UniversitiesMarquee = () => (
   <section className="py-16 px-6 bg-surface overflow-hidden">
     <div className="max-w-7xl mx-auto mb-8">
-      <h2 className="text-3xl font-bold text-center text-foreground">Top Universities</h2>
+      <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl font-bold text-center text-foreground">Top Universities</motion.h2>
     </div>
     <div className="relative">
       <div className="flex animate-marquee whitespace-nowrap">
         {[...universities, ...universities].map((u, i) => (
-          <span
-            key={i}
-            className="mx-8 text-muted-foreground font-semibold text-lg flex-shrink-0"
-          >
-            {u}
-          </span>
+          <span key={i} className="mx-8 text-muted-foreground font-semibold text-lg flex-shrink-0">{u}</span>
         ))}
       </div>
     </div>
