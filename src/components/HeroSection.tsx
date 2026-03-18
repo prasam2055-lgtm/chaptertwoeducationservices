@@ -17,9 +17,10 @@ const HeroSection = () => (
 
     <div className="relative z-10 max-w-4xl mx-auto px-6 py-16 text-center">
       <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+        <p className="text-sm sm:text-base font-semibold text-gold uppercase tracking-widest mb-3">ChapterTwo Education Services</p>
         <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-[1.1] mb-8 text-balance text-foreground">
-          Take the First Step to{" "}
-          <span className="text-gold">STUDY ABROAD</span>
+          Begin Your Next Chapter{" "}
+          <span className="text-gold">Abroad.</span>
         </h1>
         <ul className="space-y-4 mb-10 inline-block text-left">
           {bullets.map((item, i) => (
