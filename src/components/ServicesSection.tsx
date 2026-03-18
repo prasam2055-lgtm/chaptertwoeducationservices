@@ -1,4 +1,5 @@
 import { Users, Globe2, FileText, GraduationCap, Award, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 const services = [
   { title: "Career Counseling", desc: "Connect with professionals to evaluate your standing.", icon: Users },
@@ -12,10 +13,17 @@ const services = [
 const ServicesSection = () => (
   <section id="services" className="py-20 px-6 bg-navy">
     <div className="max-w-7xl mx-auto">
-      <h2 className="text-3xl font-bold text-center mb-16 text-primary-foreground">The ChapterTwo Advantage</h2>
+      <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-3xl font-bold text-center mb-16 text-primary-foreground">The ChapterTwo Advantage</motion.h2>
       <div className="grid md:grid-cols-3 gap-12">
         {services.map((s, i) => (
-          <div key={i} className="flex gap-4">
+          <motion.div
+            key={i}
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: i * 0.08 }}
+            className="flex gap-4"
+          >
             <div className="flex-shrink-0 w-12 h-12 bg-primary-foreground/10 rounded-xl flex items-center justify-center">
               <s.icon className="text-gold w-6 h-6" />
             </div>
@@ -23,7 +31,7 @@ const ServicesSection = () => (
               <h4 className="font-bold text-lg mb-2 text-primary-foreground">{s.title}</h4>
               <p className="text-primary-foreground/60 text-sm leading-relaxed">{s.desc}</p>
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     </div>

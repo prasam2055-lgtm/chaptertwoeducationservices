@@ -1,23 +1,29 @@
 import { Calendar, CheckCircle2 } from "lucide-react";
+import { motion } from "framer-motion";
 
 const VisaEventsSection = () => (
   <section className="py-20 px-6 bg-background">
     <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
-      {/* Visa Success Gallery */}
-      <div>
+      <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
         <h3 className="text-2xl font-bold mb-6 text-foreground">Visa Success Gallery</h3>
         <div className="grid grid-cols-3 gap-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="aspect-square bg-surface rounded-xl flex items-center justify-center">
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.06 }}
+              className="aspect-square bg-surface rounded-xl flex items-center justify-center"
+            >
               <CheckCircle2 className="text-gold w-8 h-8" />
-            </div>
+            </motion.div>
           ))}
         </div>
         <p className="text-muted-foreground text-sm mt-4">Real student visa approvals — your success is our pride.</p>
-      </div>
+      </motion.div>
 
-      {/* Upcoming Event */}
-      <div className="flex items-center">
+      <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }} className="flex items-center">
         <div className="bg-card rounded-2xl shadow-card p-8 w-full">
           <div className="flex items-center gap-3 mb-4">
             <Calendar className="text-gold w-8 h-8" />
@@ -31,7 +37,7 @@ const VisaEventsSection = () => (
             Register Now
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   </section>
 );
