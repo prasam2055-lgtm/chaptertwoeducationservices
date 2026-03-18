@@ -3,9 +3,9 @@ import { motion } from "framer-motion";
 import heroImg from "@/assets/hero-students.jpg";
 
 const bullets = [
-  "Courses starting from Rs. 15 Lakhs*",
-  "Scholarships up to 50%*",
-  "Offer letter in less than 48 hours*",
+  "Accessible Education: Global programs starting from Rs. 10 Lakhs*",
+  "Financial Support: Secure up to 50% in scholarship funding*",
+  "Rapid Processing: Receive your offer letter within 48 hours*",
 ];
 
 const HeroSection = () => (
