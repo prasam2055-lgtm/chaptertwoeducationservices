@@ -1,19 +1,42 @@
 import { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { X, GraduationCap, MapPin, BookOpen } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+
+const destinations = ["Australia", "USA", "UK", "Japan", "Europe", "South Korea"];
+const ieltsOptions = ["Done", "Yet to be done"];
 
 const LeadFormPopup = () => {
   const [open, setOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    destination: "",
+    ielts: "",
+    message: "",
+  });
 
   useEffect(() => {
-    const timer = setTimeout(() => setOpen(true), 4000);
+    const handleScroll = () => {
+      const scrolled = window.scrollY + window.innerHeight;
+      const total = document.documentElement.scrollHeight;
+      if (scrolled >= total - 200) {
+        setOpen(true);
+        window.removeEventListener("scroll", handleScroll);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
     const handler = () => setOpen(true);
     document.addEventListener("open-lead-form", handler);
     return () => {
-      clearTimeout(timer);
+      window.removeEventListener("scroll", handleScroll);
       document.removeEventListener("open-lead-form", handler);
     };
   }, []);
+
+  const inputClass =
+    "w-full px-3 py-2.5 text-sm rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-gold outline-none transition-all duration-200";
 
   return (
     <AnimatePresence>
@@ -31,7 +54,7 @@ const LeadFormPopup = () => {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: "spring", duration: 0.4 }}
-            className="relative bg-card rounded-2xl shadow-elevated p-6 w-full max-w-sm z-10"
+            className="relative bg-card rounded-2xl shadow-elevated p-6 w-full max-w-md z-10"
           >
             <button
               onClick={() => setOpen(false)}
@@ -40,17 +63,84 @@ const LeadFormPopup = () => {
             >
               <X className="w-5 h-5" />
             </button>
-            <h3 className="text-lg font-bold mb-1 text-card-foreground">Start your Journey</h3>
-            <p className="text-sm text-muted-foreground mb-4">Book a free counseling session today.</p>
+
+            <div className="flex items-center gap-2 mb-1">
+              <GraduationCap className="w-5 h-5 text-gold" />
+              <h3 className="text-lg font-bold text-card-foreground">Book Free Counseling</h3>
+            </div>
+            <p className="text-sm text-muted-foreground mb-5">
+              Get personalized guidance for your study abroad journey.
+            </p>
+
             <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
-              <input type="text" placeholder="Full Name" className="w-full px-3 py-2.5 text-sm rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-gold outline-none" />
+              <input
+                type="text"
+                placeholder="Full Name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className={inputClass}
+              />
+
               <div className="grid grid-cols-2 gap-3">
-                <input type="email" placeholder="Email" className="w-full px-3 py-2.5 text-sm rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-gold outline-none" />
-                <input type="tel" placeholder="Phone" className="w-full px-3 py-2.5 text-sm rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-gold outline-none" />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className={inputClass}
+                />
+                <input
+                  type="tel"
+                  placeholder="Phone"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                  className={inputClass}
+                />
               </div>
-              <textarea placeholder="Your Message" rows={2} className="w-full px-3 py-2.5 text-sm rounded-lg border border-border bg-background text-foreground focus:ring-2 focus:ring-gold outline-none resize-none" />
-              <button type="submit" className="w-full bg-gold hover:bg-gold-hover text-accent-foreground py-2.5 rounded-lg font-semibold text-sm transition-colors active:scale-[0.98]">
-                Start your Study Abroad Journey
+
+              {/* Destination Country */}
+              <div className="relative">
+                <MapPin className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <select
+                  value={formData.destination}
+                  onChange={(e) => setFormData({ ...formData, destination: e.target.value })}
+                  className={`${inputClass} pl-9 appearance-none cursor-pointer`}
+                >
+                  <option value="" disabled>Destination Country</option>
+                  {destinations.map((d) => (
+                    <option key={d} value={d}>{d}</option>
+                  ))}
+                </select>
+              </div>
+
+              {/* IELTS Status */}
+              <div className="relative">
+                <BookOpen className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground pointer-events-none" />
+                <select
+                  value={formData.ielts}
+                  onChange={(e) => setFormData({ ...formData, ielts: e.target.value })}
+                  className={`${inputClass} pl-9 appearance-none cursor-pointer`}
+                >
+                  <option value="" disabled>IELTS Status</option>
+                  {ieltsOptions.map((o) => (
+                    <option key={o} value={o}>{o}</option>
+                  ))}
+                </select>
+              </div>
+
+              <textarea
+                placeholder="Your Message (optional)"
+                rows={2}
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className={`${inputClass} resize-none`}
+              />
+
+              <button
+                type="submit"
+                className="w-full bg-gold hover:bg-gold-hover text-accent-foreground py-3 rounded-lg font-bold text-sm transition-all duration-200 active:scale-[0.98] hover:shadow-lg"
+              >
+                Start your Study Abroad Journey →
               </button>
             </form>
           </motion.div>
