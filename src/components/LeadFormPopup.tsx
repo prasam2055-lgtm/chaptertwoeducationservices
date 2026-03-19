@@ -9,6 +9,7 @@ const ieltsOptions = ["Done", "Yet to be done"];
 
 const LeadFormPopup = () => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
