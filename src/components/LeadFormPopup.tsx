@@ -164,9 +164,10 @@ const LeadFormPopup = () => {
 
               <button
                 type="submit"
-                className="w-full bg-gold hover:bg-gold-hover text-accent-foreground py-3 rounded-lg font-bold text-sm transition-all duration-200 active:scale-[0.98] hover:shadow-lg"
+                disabled={loading}
+                className="w-full bg-gold hover:bg-gold-hover text-accent-foreground py-3 rounded-lg font-bold text-sm transition-all duration-200 active:scale-[0.98] hover:shadow-lg disabled:opacity-60"
               >
-                Start your Study Abroad Journey →
+                {loading ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : "Start your Study Abroad Journey →"}
               </button>
             </form>
           </motion.div>
