@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import { X, GraduationCap, MapPin, BookOpen } from "lucide-react";
+import { X, GraduationCap, MapPin, BookOpen, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 const destinations = ["Australia", "USA", "UK", "Japan", "Europe", "South Korea"];
 const ieltsOptions = ["Done", "Yet to be done"];
 
 const LeadFormPopup = () => {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -72,7 +75,30 @@ const LeadFormPopup = () => {
               Get personalized guidance for your study abroad journey.
             </p>
 
-            <form className="space-y-3" onSubmit={(e) => e.preventDefault()}>
+              <form className="space-y-3" onSubmit={async (e) => {
+                e.preventDefault();
+                if (!formData.name || !formData.email) {
+                  toast({ title: "Please fill in your name and email.", variant: "destructive" });
+                  return;
+                }
+                setLoading(true);
+                const { error } = await supabase.from("leads").insert({
+                  name: formData.name,
+                  email: formData.email,
+                  phone: formData.phone || null,
+                  destination: formData.destination || null,
+                  ielts_status: formData.ielts || null,
+                  message: formData.message || null,
+                });
+                setLoading(false);
+                if (error) {
+                  toast({ title: "Something went wrong. Please try again.", variant: "destructive" });
+                } else {
+                  toast({ title: "Thank you! We'll contact you shortly." });
+                  setFormData({ name: "", email: "", phone: "", destination: "", ielts: "", message: "" });
+                  setOpen(false);
+                }
+              }}>
               <input
                 type="text"
                 placeholder="Full Name"
@@ -138,9 +164,10 @@ const LeadFormPopup = () => {
 
               <button
                 type="submit"
-                className="w-full bg-gold hover:bg-gold-hover text-accent-foreground py-3 rounded-lg font-bold text-sm transition-all duration-200 active:scale-[0.98] hover:shadow-lg"
+                disabled={loading}
+                className="w-full bg-gold hover:bg-gold-hover text-accent-foreground py-3 rounded-lg font-bold text-sm transition-all duration-200 active:scale-[0.98] hover:shadow-lg disabled:opacity-60"
               >
-                Start your Study Abroad Journey →
+                {loading ? <Loader2 className="w-4 h-4 animate-spin mx-auto" /> : "Start your Study Abroad Journey →"}
               </button>
             </form>
           </motion.div>
