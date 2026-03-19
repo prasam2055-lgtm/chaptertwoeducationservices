@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
-import { X, GraduationCap, MapPin, BookOpen } from "lucide-react";
+import { X, GraduationCap, MapPin, BookOpen, Loader2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 const destinations = ["Australia", "USA", "UK", "Japan", "Europe", "South Korea"];
 const ieltsOptions = ["Done", "Yet to be done"];
