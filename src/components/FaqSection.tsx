@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ChevronDown, HelpCircle } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const faqs = [
@@ -25,19 +25,19 @@ const FaqSection = () => {
   const [openIdx, setOpenIdx] = useState(0);
 
   return (
-    <section className="py-16 px-6 bg-surface">
+    <section id="contact" className="section-padding bg-background">
       <div className="max-w-2xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex items-center justify-center gap-2 mb-8"
+          className="text-center mb-12"
         >
-          <HelpCircle className="w-5 h-5 text-gold" />
-          <h2 className="text-2xl font-bold text-foreground">FAQs</h2>
+          <h2 className="section-heading">Frequently Asked Questions</h2>
+          <p className="section-subheading">Everything you need to know before starting your journey.</p>
         </motion.div>
 
-        <div className="space-y-2">
+        <div className="space-y-3">
           {faqs.map((faq, i) => (
             <motion.div
               key={i}
@@ -45,23 +45,23 @@ const FaqSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.08 }}
-              className="border border-border rounded-xl overflow-hidden bg-card hover:shadow-md transition-shadow duration-300"
+              className={`border rounded-xl overflow-hidden transition-all duration-300 ${
+                openIdx === i
+                  ? "border-gold/30 bg-gold-light shadow-card"
+                  : "border-border/50 bg-card hover:border-border"
+              }`}
             >
               <button
                 onClick={() => setOpenIdx(openIdx === i ? -1 : i)}
-                className="w-full flex items-center justify-between px-5 py-4 text-left text-sm font-semibold text-card-foreground hover:bg-surface/50 transition-colors"
+                className="w-full flex items-center justify-between px-6 py-5 text-left text-sm font-semibold text-card-foreground transition-colors"
               >
-                <span className="flex items-center gap-3">
-                  <span className="w-6 h-6 rounded-full bg-gold/10 text-gold flex items-center justify-center text-xs font-bold flex-shrink-0">
-                    {i + 1}
-                  </span>
-                  {faq.q}
-                </span>
+                <span>{faq.q}</span>
                 <motion.div
                   animate={{ rotate: openIdx === i ? 180 : 0 }}
                   transition={{ duration: 0.2 }}
+                  className="flex-shrink-0 ml-4"
                 >
-                  <ChevronDown className="w-4 h-4 flex-shrink-0 ml-3 text-muted-foreground" />
+                  <ChevronDown className="w-4 h-4 text-muted-foreground" />
                 </motion.div>
               </button>
               <AnimatePresence>
@@ -73,7 +73,7 @@ const FaqSection = () => {
                     transition={{ duration: 0.25 }}
                     className="overflow-hidden"
                   >
-                    <div className="px-5 pb-4 text-sm text-muted-foreground leading-relaxed pl-14">
+                    <div className="px-6 pb-5 text-sm text-muted-foreground leading-relaxed">
                       {faq.a}
                     </div>
                   </motion.div>
